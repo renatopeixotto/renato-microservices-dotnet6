@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using GeekShopping.Web.Services.IServices;
+using GeekShopping.Web.Services;
+
 
 namespace GeekShopping.Web
 {
@@ -22,6 +22,8 @@ namespace GeekShopping.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Injetar o ProductService (serviço de produto)
+            services.AddHttpClient<IProductService, ProductService>(c => c.BaseAddress = new Uri(Configuration["ServiceUrls:ProductAPI"]));
             services.AddControllersWithViews();
         }
 
